@@ -1,13 +1,46 @@
+import $ from "jquery"
 import './App.css'
+import { useState } from "react"
 
 function Home() {
+    const [isClicked, setIsClicked] = useState(false)
+
+    
+  const showImage = () => {
+    if (isClicked === false) {
+      setIsClicked(true)
+
+      const backgroundXd = $("<div id='backgroundAll'></div>")
+      $("body").append(backgroundXd)
+      $('#backgroundAll').addClass('absolute z-[2] top-0 w-full h-full bg-white opacity-50')
+
+      $('#huge-new-id')
+        .removeClass('w-full h-full bg-cover')
+        .addClass('absolute z-[5] shadow-2xl bg-contain inset-0 m-auto h-[700px] w-[368px]')
+    } else {
+      setIsClicked(false)
+
+      // видаляємо фон
+      $('#backgroundAll').remove()
+
+      // повертаємо класи назад
+      $('#huge-new-id')
+        .removeClass('absolute z-[5] shadow-2xl bg-contain inset-0 m-auto h-[700px] w-[368px]')
+        .addClass('w-full h-full bg-cover')
+    }
+  }
+
+
+
     return (
         <>
             <main className="home-container flex justify-between w-full h-620px">
                 <section className="latest-news w-[80%] flex flex-col pt-[26px] pl-[38px] mb-[25px]">
                     <span className="about text-[20px] mb-[17px]">Latest News:</span>
                     <div className="news flex h-[525px]">
-                        <div className="huge-new w-[32%] mr-[10px]"></div>
+                        <div className="huge-box w-[32%] mr-[10px]">
+                            <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>
+                        </div>
                         <div className="smaller-news w-[68%] flex flex-col justify-between">
                             <div className="top-side-news w-full h-[325px] flex justify-between">
                                 <div className="top-left-new w-[49%]"></div>
