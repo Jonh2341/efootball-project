@@ -1,3 +1,8 @@
+.img-expanded {
+  max-width: 90vw;   /* не більше ширини вікна */
+  max-height: 90vh;  /* не більше висоти вікна */
+  margin: auto;
+}
 .huge-new {
   background-image: url('./storage/new1.jpg');
   background-repeat: no-repeat;
@@ -5,7 +10,6 @@
 
 .top-left-new {
   background-image: url('./storage/new2.jpg');
-  background-size: cover;
   background-repeat: no-repeat;
 }
 
