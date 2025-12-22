@@ -1,3 +1,14 @@
+/* .home-container {
+  background-image: url('../src/storage/Sons\ of\ the\ Forest\ Screenshot\ 2025.12.18\ -\ 21.09.23.84.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+
+.header-box, .league-info {
+  box-shadow: -2px 2px 37px 1px rgba(0,0,0,0.75);
+}
+
 .img-expanded {
   max-width: 90vw;   /* не більше ширини вікна */
   max-height: 90vh;  /* не більше висоти вікна */
@@ -27,38 +38,14 @@
 
 .league-table {
   display: grid;
-  grid-template-columns: 50px repeat(5, 1fr);
-  grid-template-areas:
-    "empty w l s m p"
-    "rank1 w1 l1 s1 m1 p1"
-    "rank2 w2 l2 s2 m2 p2";
+  grid-template-columns: 50px repeat(5, 1fr); /* rank + 5 stats */
   gap: 8px;
   max-width: 500px;
   margin: 20px auto;
   font-family: sans-serif;
 }
 
-.header-w { grid-area: w; }
-.header-l { grid-area: l; }
-.header-s { grid-area: s; }
-.header-m { grid-area: m; }
-.header-p { grid-area: p; }
-
-.rank-1 { grid-area: rank1; }
-.cell-1-w { grid-area: w1; }
-.cell-1-l { grid-area: l1; }
-.cell-1-s { grid-area: s1; }
-.cell-1-m { grid-area: m1; }
-.cell-1-p { grid-area: p1; }
-
-.rank-2 { grid-area: rank2; }
-.cell-2-w { grid-area: w2; }
-.cell-2-l { grid-area: l2; }
-.cell-2-s { grid-area: s2; }
-.cell-2-m { grid-area: m2; }
-.cell-2-p { grid-area: p2; }
-
-.header, .rank, .cell {
+.header, .cell {
   text-align: center;
   padding: 8px;
   background-color: #f0f0f0;

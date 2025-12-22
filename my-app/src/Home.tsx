@@ -27,6 +27,28 @@ function Home() {
       id: '#bottom-side-new',
       expanded: 'absolute z-[5] shadow-2xl bg-contain inset-0 m-auto h-[359px] w-[687px]',
       normal: 'w-full h-full'
+    },
+  }
+
+  // статистика сезонів
+  const seasonStats = {
+    'seasonTwentySix': {
+      'Liverpool': {
+        icon: '../src/storage/lfc.png',
+        wins: 3,
+        loses: 6,
+        scored: 17,
+        missed: 25,
+        points: '', // розрахунок відбувається динамічно
+      },
+      'Tottenham': {
+        icon: '../src/storage/tfc.png',
+        wins: 6,
+        loses: 3,
+        scored: 25,
+        missed: 17,
+        points: '', // розрахунок відбувається динамічно
+      }
     }
   }
 
@@ -54,9 +76,10 @@ function Home() {
   }
 
   return (
+    <>
     <main className="home-container flex justify-between w-full h-620px">
       <section className="latest-news w-[80%] flex flex-col pt-[26px] pl-[38px] mb-[25px]">
-        <span className="about text-[20px] mb-[17px]">Latest News:</span>
+        <span className="about text-[20px] mb-[17px] text-white">Latest News:</span>
         <div className="news flex h-[525px]">
           <div className="huge-box w-[32%] mr-[10px]">
             <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>
@@ -79,31 +102,32 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="league-info w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px]">
+      <section className="league-info relative w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px] z-[2]">
         <span className="about text-[20px]">league table:</span>
         <div className="league-table">
-          <div className="header header-w">W</div>
-          <div className="header header-l">L</div>
-          <div className="header header-s">S</div>
-          <div className="header header-m">M</div>
-          <div className="header header-p">P</div>
+          {/* Headers */}
+          <div className="header">#</div>
+          <div className="header">W</div>
+          <div className="header">L</div>
+          <div className="header">S</div>
+          <div className="header">M</div>
+          <div className="header">P</div>
 
-          <div className="rank rank-1">1.</div>
-          <div className="cell cell-1-w">...</div>
-          <div className="cell cell-1-l">...</div>
-          <div className="cell cell-1-s">...</div>
-          <div className="cell cell-1-m">...</div>
-          <div className="cell cell-1-p">...</div>
-
-          <div className="rank rank-2">2.</div>
-          <div className="cell cell-2-w">...</div>
-          <div className="cell cell-2-l">...</div>
-          <div className="cell cell-2-s">...</div>
-          <div className="cell cell-2-m">...</div>
-          <div className="cell cell-2-p">...</div>
+          {/* Rows */}
+          {Object.entries(seasonStats.seasonTwentySix).map(([team, stats], idx) => (
+            <>
+              <div className="cell"><img src={stats.icon}/></div>
+              <div className="cell">{stats.wins}</div>
+              <div className="cell">{stats.loses}</div>
+              <div className="cell">{stats.scored}</div>
+              <div className="cell">{stats.missed}</div>
+              <div className="cell">{stats.points || stats.wins * 3}</div>
+            </>
+          ))}
         </div>
       </section>
     </main>
+    </>
   )
 }
 
