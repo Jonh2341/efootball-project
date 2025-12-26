@@ -1,0 +1,42 @@
+{
+  "seasonTwentySix": {
+    "Liverpool": {
+      "name": "Liverpool",
+      "icon": "lfc.png",
+      "wins": 3,
+      "loses": 6,
+      "scored": 17,
+      "missed": 25,
+      "cupStatus": "loser"
+    },
+    "Tottenham": {
+      "name": "Tottenham",
+      "icon": "tfc.png",
+      "wins": 6,
+      "loses": 3,
+      "scored": 25,
+      "missed": 17,
+      "cupStatus": "winner"
+    }
+  },
+  "seasonTwentySeven": {
+    "Liverpool": {
+      "name": "Liverpool",
+      "icon": "lfc.png",
+      "wins": 6,
+      "loses": 6,
+      "scored": 21,
+      "missed": 19,
+      "cupStatus": "winner"
+    },
+    "Tottenham": {
+      "name": "Tottenham",
+      "icon": "tfc.png",
+      "wins": 6,
+      "loses": 6,
+      "scored": 19,
+      "missed": 21,
+      "cupStatus": "loser"
+    }
+  }
+}

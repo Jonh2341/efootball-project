@@ -1,6 +1,12 @@
 import $ from "jquery"
 import './App.css'
 import { useState } from "react"
+import seasonStats from "./storage/seasonStats.json";
+
+// seasons cycle
+// Object.keys(seasonStats).forEach(season => {
+//   console.log(seasonStats[season].Liverpool.cupStatus)
+// })
 
 function Home() {
   const [isClicked, setIsClicked] = useState(false)
@@ -30,28 +36,6 @@ function Home() {
     },
   }
 
-  // статистика сезонів
-  const seasonStats = {
-    'seasonTwentySix': {
-      'Liverpool': {
-        icon: '../src/storage/lfc.png',
-        wins: 3,
-        loses: 6,
-        scored: 17,
-        missed: 25,
-        points: '', // розрахунок відбувається динамічно
-      },
-      'Tottenham': {
-        icon: '../src/storage/tfc.png',
-        wins: 6,
-        loses: 3,
-        scored: 25,
-        missed: 17,
-        points: '', // розрахунок відбувається динамічно
-      }
-    }
-  }
-
   const showImage = (e) => {
     const $img = $(e.currentTarget)
 
@@ -79,7 +63,7 @@ function Home() {
     <>
     <main className="home-container flex justify-between w-full h-620px">
       <section className="latest-news w-[80%] flex flex-col pt-[26px] pl-[38px] mb-[25px]">
-        <span className="about text-[20px] mb-[17px] text-white">Latest News:</span>
+        <span className="about text-[20px] mb-[17px]">Latest News:</span>
         <div className="news flex h-[525px]">
           <div className="huge-box w-[32%] mr-[10px]">
             <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>
@@ -116,15 +100,16 @@ function Home() {
           {/* Rows */}
           {Object.entries(seasonStats.seasonTwentySix).map(([team, stats], idx) => (
             <>
-              <div className="cell"><img src={stats.icon}/></div>
+              <div className="cell"><img src={`../src/storage/${stats.icon}`} /></div>
               <div className="cell">{stats.wins}</div>
               <div className="cell">{stats.loses}</div>
               <div className="cell">{stats.scored}</div>
               <div className="cell">{stats.missed}</div>
-              <div className="cell">{stats.points || stats.wins * 3}</div>
+              <div className="cell">{stats.wins * 3}</div>
             </>
           ))}
         </div>
+        <span className="about">trophy winner: {seasonStats.seasonTwentySix.Tottenham.name}</span>
       </section>
     </main>
     </>
