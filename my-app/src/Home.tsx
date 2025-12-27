@@ -2,6 +2,7 @@ import $ from "jquery"
 import './App.css'
 import { useState } from "react"
 import seasonStats from "./storage/seasonStats.json";
+import news from "./storage/news.json"
 
 // seasons cycle
 // Object.keys(seasonStats).forEach(season => {
@@ -58,6 +59,12 @@ function Home() {
       }
     })
   }
+  
+  let hugeNew = <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>;
+  let topLeftNew = <div id="top-left-new" className="top-left-new w-full h-full bg-cover" onClick={showImage}></div>;
+  let littleNew = <div id='little-new' className="little-new w-full h-full" onClick={showImage}></div>;
+  let bottomSideNew = <div id='bottom-side-new' className="bottom-side-new w-full h-full" onClick={showImage}></div>;
+
 
   return (
     <>
@@ -66,22 +73,22 @@ function Home() {
         <span className="about text-[20px] mb-[17px]">Latest News:</span>
         <div className="news flex h-[525px]">
           <div className="huge-box w-[32%] mr-[10px]">
-            <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>
+            {hugeNew}
           </div>
           <div className="smaller-news w-[68%] flex flex-col justify-between">
             <div className="top-side-news w-full h-[325px] flex justify-between">
               <div className="top-left-new-box w-[49%]">
-                <div id="top-left-new" className="top-left-new w-full h-full bg-cover" onClick={showImage}></div>
+                {topLeftNew}
               </div>
               <div className="top-right-new w-[49%] flex flex-col text-center">
                 <div className="roller mt-[26px]">season {season_amount}</div>
                 <div className="little-new-box h-[251px] mt-[24px]">
-                  <div id='little-new' className="little-new w-full h-full" onClick={showImage}></div>
+                  {littleNew}
                 </div>
               </div>
             </div>
             <div className="bottom-side-new-box w-full h-[188px]">
-              <div id='bottom-side-new' className="bottom-side-new w-full h-full" onClick={showImage}></div>
+              {bottomSideNew}
             </div>
           </div>
         </div>

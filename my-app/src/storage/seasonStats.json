@@ -27,16 +27,16 @@
       "loses": 6,
       "scored": 21,
       "missed": 19,
-      "cupStatus": "winner"
+      "cupStatus": "..."
     },
     "Tottenham": {
       "name": "Tottenham",
       "icon": "tfc.png",
-      "wins": 6,
-      "loses": 6,
-      "scored": 19,
-      "missed": 21,
-      "cupStatus": "loser"
+      "wins": 0,
+      "loses": 0,
+      "scored": 0,
+      "missed": 0,
+      "cupStatus": "..."
     }
   }
 }
