@@ -23,10 +23,10 @@
     "Liverpool": {
       "name": "Liverpool",
       "icon": "lfc.png",
-      "wins": 6,
-      "loses": 6,
-      "scored": 21,
-      "missed": 19,
+      "wins":0,
+      "loses":0,
+      "scored": 0,
+      "missed": 0,
       "cupStatus": "..."
     },
     "Tottenham": {

@@ -1,18 +1,18 @@
 {
     "HugeNews": {
-        "seasonTwentySix": "./storage/new1.jpg",
+        "seasonTwentySix": "url('../src/storage/new1.jpg')",
         "seasonTwentySeven": "..."
     },
     "TopLeftNews": {
-        "seasonTwentySix": "./storage/new2.jpg",
+        "seasonTwentySix": "url('../src/storage/new2.jpg')",
         "seasonTwentySeven": "..."
     },
     "LittleNews": {
-        "seasonTwentySix": "./storage/new3.jpg",
+        "seasonTwentySix": "url('../src/storage/new3.jpg')",
         "seasonTwentySeven": "..."
     },
     "BottomSideNews": {
-        "seasonTwentySix": "./storage/new-4.png",
+        "seasonTwentySix": "url('../src/storage/new-4.png')",
         "seasonTwentySeven": "..."
     }
 }

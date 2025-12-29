@@ -2,16 +2,24 @@ import $ from "jquery"
 import './App.css'
 import { useState } from "react"
 import seasonStats from "./storage/seasonStats.json";
-import news from "./storage/news.json"
+import newsData from "./storage/news.json"
 
-// seasons cycle
-// Object.keys(seasonStats).forEach(season => {
-//   console.log(seasonStats[season].Liverpool.cupStatus)
-// })
+// let seasonsArr = Object.keys(seasonStats);
+// console.log(seasonsArr)
 
 function Home() {
   const [isClicked, setIsClicked] = useState(false)
-  let season_amount = 26
+  const [seasonAmount, setSeasonAmount] = useState(26)
+  
+  const incrementByOne = () => setSeasonAmount(prev => prev + 1);
+  const decrementByOne = () => {
+    if (seasonAmount > 26) {
+      setSeasonAmount(prev => prev - 1);
+    } else {
+      alert('Currently this is minimal season.')
+    }
+    
+  }
 
   // конфіг для різних блоків
   const configs = {
@@ -60,11 +68,54 @@ function Home() {
     })
   }
   
-  let hugeNew = <div id="huge-new-id" className="huge-new bg-cover w-full h-full" onClick={showImage}></div>;
-  let topLeftNew = <div id="top-left-new" className="top-left-new w-full h-full bg-cover" onClick={showImage}></div>;
-  let littleNew = <div id='little-new' className="little-new w-full h-full" onClick={showImage}></div>;
-  let bottomSideNew = <div id='bottom-side-new' className="bottom-side-new w-full h-full" onClick={showImage}></div>;
+  const createNews = (
+    hugeNewUrl: string,
+    topLeftNewUrl: string,
+    littleNewUrl: string,
+    bottomSideNewUrl: string
+  ) => {
+    return {
+      hugeNew: (
+        <div
+          id="huge-new-id"
+          className="huge-new bg-cover bg-no-repeat w-full h-full"
+          style={{ backgroundImage: hugeNewUrl }}
+          onClick={showImage}
+        ></div>
+      ),
+      topLeftNew: (
+        <div
+          id="top-left-new"
+          className="top-left-new bg-no-repeat w-full h-full bg-cover"
+          style={{ backgroundImage: topLeftNewUrl }}
+          onClick={showImage}
+        ></div>
+      ),
+      littleNew: (
+        <div
+          id="little-new"
+          className="little-new w-full h-full bg-cover bg-no-repeat"
+          style={{ backgroundImage: littleNewUrl }}
+          onClick={showImage}
+        ></div>
+      ),
+      bottomSideNew: (
+        <div
+          id="bottom-side-new"
+          className="bottom-side-new w-full h-full bg-cover bg-no-repeat"
+          style={{ backgroundImage: bottomSideNewUrl }}
+          onClick={showImage}
+        ></div>
+      ),
+    };
+  };
 
+  const { hugeNew, topLeftNew, littleNew, bottomSideNew } = createNews(
+    newsData.HugeNews.seasonTwentySix,
+    newsData.TopLeftNews.seasonTwentySix,
+    newsData.LittleNews.seasonTwentySix,
+    newsData.BottomSideNews.seasonTwentySix
+  );
 
   return (
     <>
@@ -81,7 +132,11 @@ function Home() {
                 {topLeftNew}
               </div>
               <div className="top-right-new w-[49%] flex flex-col text-center">
-                <div className="roller mt-[26px]">season {season_amount}</div>
+                <div className="roller-box flex mt-[26px] justify-center">
+                  <button className="previousSeason mr-[15px!important]" onClick={decrementByOne}>&lt;</button>
+                  <div className="roller">season {seasonAmount}</div>
+                  <button className="nextSeason ml-[15px!important]" onClick={incrementByOne}>&gt;</button>
+                </div>
                 <div className="little-new-box h-[251px] mt-[24px]">
                   {littleNew}
                 </div>

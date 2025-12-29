@@ -15,27 +15,27 @@
   margin: auto;
 }
 
-.huge-new {
+/* .huge-new {
   background-image: url('./storage/new1.jpg');
   background-repeat: no-repeat;
-}
-
+} */
+/* 
 .top-left-new {
   background-image: url('./storage/new2.jpg');
   background-repeat: no-repeat;
-}
+} */
 
-.little-new {
+/* .little-new {
   background-image: url('./storage/new3.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
-.bottom-side-new {
+/* .bottom-side-new {
   background-image: url('./storage/new-4.png');
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 .league-table {
   display: grid;
