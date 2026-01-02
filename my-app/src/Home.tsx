@@ -10,8 +10,25 @@ import newsData from "./storage/news.json"
 function Home() {
   const [isClicked, setIsClicked] = useState(false)
   const [seasonAmount, setSeasonAmount] = useState(26)
-  
-  const incrementByOne = () => setSeasonAmount(prev => prev + 1);
+
+  const seasonAmountCounter = (arr) => {
+    let seasonsArr = [];
+
+    Object.keys(arr).forEach(season => {
+      seasonsArr.push(season)
+      // console.log(season)
+    })
+
+    return seasonsArr;
+  }
+
+  const seasonsLength = seasonAmountCounter(seasonStats).length - 1;
+  console.log(seasonsLength)
+
+  const incrementByOne = () => {
+    if (seasonAmount != 26 + seasonsLength)
+    setSeasonAmount(prev => prev + 1);
+  }
   const decrementByOne = () => {
     if (seasonAmount > 26) {
       setSeasonAmount(prev => prev - 1);
