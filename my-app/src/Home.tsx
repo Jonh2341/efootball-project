@@ -1,42 +1,57 @@
-import $ from "jquery"
-import './App.css'
-import { useState } from "react"
+import React from "react";
+import $ from "jquery";
+import './App.css';
+import { useState } from "react";
 import seasonStats from "./storage/seasonStats.json";
-import newsData from "./storage/news.json"
+import newsDataRaw from "./storage/news.json";
 
-// let seasonsArr = Object.keys(seasonStats);
-// console.log(seasonsArr)
+// 🔑 Типи для ключів сезону та структури новин
+type SeasonKey = "seasonTwentySix" | "seasonTwentySeven";
+
+interface NewsBlock {
+  seasonTwentySix: string;
+  seasonTwentySeven: string;
+}
+
+interface NewsData {
+  HugeNews: NewsBlock;
+  TopLeftNews: NewsBlock;
+  LittleNews: NewsBlock;
+  BottomSideNews: NewsBlock;
+}
+
+const newsData = newsDataRaw as NewsData;
 
 function Home() {
-  const [isClicked, setIsClicked] = useState(false)
-  const [seasonAmount, setSeasonAmount] = useState(26)
+  const [isClicked, setIsClicked] = useState(false);
+  const [seasonAmount, setSeasonAmount] = useState(26);
 
-  const seasonAmountCounter = (arr) => {
-    let seasonsArr = [];
+  // утиліта: число -> ключ сезону
+  const numberToSeasonKey = (n: number): SeasonKey => {
+    const map: Record<number, SeasonKey> = {
+      26: "seasonTwentySix",
+      27: "seasonTwentySeven",
+    };
+    return map[n];
+  };
 
-    Object.keys(arr).forEach(season => {
-      seasonsArr.push(season)
-      // console.log(season)
-    })
+  const seasonKey = numberToSeasonKey(seasonAmount);
 
-    return seasonsArr;
-  }
-
+  const seasonAmountCounter = (arr: object) => Object.keys(arr);
   const seasonsLength = seasonAmountCounter(seasonStats).length - 1;
-  console.log(seasonsLength)
 
   const incrementByOne = () => {
-    if (seasonAmount != 26 + seasonsLength)
-    setSeasonAmount(prev => prev + 1);
-  }
+    if (seasonAmount !== 26 + seasonsLength) {
+      setSeasonAmount(prev => prev + 1);
+    }
+  };
   const decrementByOne = () => {
     if (seasonAmount > 26) {
       setSeasonAmount(prev => prev - 1);
     } else {
-      alert('Currently this is minimal season.')
+      alert('Currently this is minimal season.');
     }
-    
-  }
+  };
 
   // конфіг для різних блоків
   const configs = {
@@ -60,31 +75,31 @@ function Home() {
       expanded: 'absolute z-[5] shadow-2xl bg-contain inset-0 m-auto h-[359px] w-[687px]',
       normal: 'w-full h-full'
     },
-  }
+  };
 
-  const showImage = (e) => {
-    const $img = $(e.currentTarget)
+  const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
+    const $img = $(e.currentTarget);
 
-    Object.keys(configs).forEach(cls => {
+    for (const cls in configs) {
       if ($img.hasClass(cls)) {
-        const { id, expanded, normal } = configs[cls]
+        const { id, expanded, normal } = configs[cls];
 
         if (!isClicked) {
-          setIsClicked(true)
-          const backgroundXd = $("<div id='backgroundAll'></div>")
-          $("body").append(backgroundXd)
-          $('#backgroundAll').addClass('absolute z-[2] top-0 w-full h-full bg-white opacity-50')
+          setIsClicked(true);
+          const backgroundXd = $("<div id='backgroundAll'></div>");
+          $("body").append(backgroundXd);
+          $('#backgroundAll').addClass('absolute z-[2] top-0 w-full h-full bg-white opacity-50');
 
-          $(id).removeClass(normal).addClass(expanded)
+          $(id).removeClass(normal).addClass(expanded);
         } else {
-          setIsClicked(false)
-          $('#backgroundAll').remove()
-          $(id).removeClass(expanded).addClass(normal)
+          setIsClicked(false);
+          $('#backgroundAll').remove();
+          $(id).removeClass(expanded).addClass(normal);
         }
       }
-    })
-  }
-  
+    }
+  };
+
   const createNews = (
     hugeNewUrl: string,
     topLeftNewUrl: string,
@@ -96,7 +111,7 @@ function Home() {
         <div
           id="huge-new-id"
           className="huge-new bg-cover bg-no-repeat w-full h-full"
-          style={{ backgroundImage: hugeNewUrl }}
+          style={{ backgroundImage: `url(${hugeNewUrl})` }}
           onClick={showImage}
         ></div>
       ),
@@ -104,7 +119,7 @@ function Home() {
         <div
           id="top-left-new"
           className="top-left-new bg-no-repeat w-full h-full bg-cover"
-          style={{ backgroundImage: topLeftNewUrl }}
+          style={{ backgroundImage: `url(${topLeftNewUrl})` }}
           onClick={showImage}
         ></div>
       ),
@@ -112,7 +127,7 @@ function Home() {
         <div
           id="little-new"
           className="little-new w-full h-full bg-cover bg-no-repeat"
-          style={{ backgroundImage: littleNewUrl }}
+          style={{ backgroundImage: `url(${littleNewUrl})` }}
           onClick={showImage}
         ></div>
       ),
@@ -120,79 +135,82 @@ function Home() {
         <div
           id="bottom-side-new"
           className="bottom-side-new w-full h-full bg-cover bg-no-repeat"
-          style={{ backgroundImage: bottomSideNewUrl }}
+          style={{ backgroundImage: `url(${bottomSideNewUrl})` }}
           onClick={showImage}
         ></div>
       ),
     };
   };
 
+  // динамічні новини
   const { hugeNew, topLeftNew, littleNew, bottomSideNew } = createNews(
-    newsData.HugeNews.seasonTwentySix,
-    newsData.TopLeftNews.seasonTwentySix,
-    newsData.LittleNews.seasonTwentySix,
-    newsData.BottomSideNews.seasonTwentySix
+    newsData.HugeNews[seasonKey],
+    newsData.TopLeftNews[seasonKey],
+    newsData.LittleNews[seasonKey],
+    newsData.BottomSideNews[seasonKey]
   );
 
   return (
     <>
-    <main className="home-container flex justify-between w-full h-620px">
-      <section className="latest-news w-[80%] flex flex-col pt-[26px] pl-[38px] mb-[25px]">
-        <span className="about text-[20px] mb-[17px]">Latest News:</span>
-        <div className="news flex h-[525px]">
-          <div className="huge-box w-[32%] mr-[10px]">
-            {hugeNew}
-          </div>
-          <div className="smaller-news w-[68%] flex flex-col justify-between">
-            <div className="top-side-news w-full h-[325px] flex justify-between">
-              <div className="top-left-new-box w-[49%]">
-                {topLeftNew}
+      <main className="home-container flex justify-between w-full h-620px">
+        <section className="latest-news w-[80%] flex flex-col pt-[26px] pl-[38px] mb-[25px]">
+          <span className="about text-[20px] mb-[17px]">Latest News:</span>
+          <div className="news flex h-[525px]">
+            <div className="huge-box w-[32%] mr-[10px]">
+              {hugeNew}
+            </div>
+            <div className="smaller-news w-[68%] flex flex-col justify-between">
+              <div className="top-side-news w-full h-[325px] flex justify-between">
+                <div className="top-left-new-box w-[49%]">
+                  {topLeftNew}
+                </div>
+                <div className="top-right-new w-[49%] flex flex-col text-center">
+                  <div className="roller-box flex mt-[26px] justify-center">
+                    <button className="previousSeason mr-[15px!important]" onClick={decrementByOne}>&lt;</button>
+                    <div className="roller">season {seasonAmount}</div>
+                    <button className="nextSeason ml-[15px!important]" onClick={incrementByOne}>&gt;</button>
+                  </div>
+                  <div className="little-new-box h-[251px] mt-[24px]">
+                    {littleNew}
+                  </div>
+                </div>
               </div>
-              <div className="top-right-new w-[49%] flex flex-col text-center">
-                <div className="roller-box flex mt-[26px] justify-center">
-                  <button className="previousSeason mr-[15px!important]" onClick={decrementByOne}>&lt;</button>
-                  <div className="roller">season {seasonAmount}</div>
-                  <button className="nextSeason ml-[15px!important]" onClick={incrementByOne}>&gt;</button>
-                </div>
-                <div className="little-new-box h-[251px] mt-[24px]">
-                  {littleNew}
-                </div>
+              <div className="bottom-side-new-box w-full h-[188px]">
+                {bottomSideNew}
               </div>
             </div>
-            <div className="bottom-side-new-box w-full h-[188px]">
-              {bottomSideNew}
-            </div>
           </div>
-        </div>
-      </section>
-      <section className="league-info relative w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px] z-[2]">
-        <span className="about text-[20px]">league table:</span>
-        <div className="league-table">
-          {/* Headers */}
-          <div className="header">#</div>
-          <div className="header">W</div>
-          <div className="header">L</div>
-          <div className="header">S</div>
-          <div className="header">M</div>
-          <div className="header">P</div>
+        </section>
+        <section className="league-info relative w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px] z-[2]">
+          <span className="about text-[20px]">league table:</span>
+          <div className="league-table">
+            {/* Headers */}
+            <div className="header">#</div>
+            <div className="header">W</div>
+            <div className="header">L</div>
+            <div className="header">S</div>
+            <div className="header">M</div>
+            <div className="header">P</div>
 
-          {/* Rows */}
-          {Object.entries(seasonStats.seasonTwentySix).map(([team, stats], idx) => (
-            <>
-              <div className="cell"><img src={`../src/storage/${stats.icon}`} /></div>
-              <div className="cell">{stats.wins}</div>
-              <div className="cell">{stats.loses}</div>
-              <div className="cell">{stats.scored}</div>
-              <div className="cell">{stats.missed}</div>
-              <div className="cell">{stats.wins * 3}</div>
-            </>
-          ))}
-        </div>
-        <span className="about">trophy winner: {seasonStats.seasonTwentySix.Tottenham.name}</span>
-      </section>
-    </main>
+            {/* Rows */}
+            {Object.entries(seasonStats[seasonKey] || {}).map(([team, stats]) => (
+              <React.Fragment key={team}>
+                <div className="cell"><img src={`../src/storage/${stats.icon}`} /></div>
+                <div className="cell">{stats.wins}</div>
+                <div className="cell">{stats.loses}</div>
+                <div className="cell">{stats.scored}</div>
+                <div className="cell">{stats.missed}</div>
+                <div className="cell">{stats.wins * 3}</div>
+              </React.Fragment>
+            ))}
+          </div>
+          <span className="about">
+            trophy winner: {seasonStats[seasonKey]?.Tottenham?.name ?? 'TBD'}
+          </span>
+        </section>
+      </main>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
