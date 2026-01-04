@@ -150,6 +150,8 @@ function Home() {
     newsData.BottomSideNews[seasonKey]
   );
 
+  const cupWinner = Object.values(seasonStats[seasonKey]).find(team => team.cupStatus == 'winner');
+
   return (
     <>
       <main className="home-container flex justify-between w-full h-620px">
@@ -205,7 +207,7 @@ function Home() {
             ))}
           </div>
           <span className="about">
-            trophy winner: {seasonStats[seasonKey]?.Tottenham?.name ?? 'TBD'}
+            trophy winner: {cupWinner?.name ?? '...'}
           </span>
         </section>
       </main>
