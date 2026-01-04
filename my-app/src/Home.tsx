@@ -207,7 +207,7 @@ function Home() {
             ))}
           </div>
           <span className="about">
-            trophy winner: {cupWinner?.name ?? '...'}
+            trophy winner: {cupWinner?.name ?? ''}
           </span>
         </section>
       </main>
