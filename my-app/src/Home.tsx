@@ -195,6 +195,7 @@ function Home() {
             </div>
           </div>
         </section>
+        {/* every stat has been changed */}
         <section className="league-info relative w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px] z-[2]">
           <span className="about text-[20px]">league table:</span>
           <div className="league-table">
