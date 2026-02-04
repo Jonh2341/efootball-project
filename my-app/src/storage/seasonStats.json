@@ -47,9 +47,9 @@
     "Liverpool": {
       "name": "Liverpool",
       "icon": "lfc.png",
-      "wins":0,
-      "loses":0,
-      "draws": 0,
+      "wins": 0,
+      "loses": 4,
+      "draws": 2,
       "scored": 0,
       "missed": 0,
       "cupStatus": "..."
@@ -57,9 +57,9 @@
     "Tottenham": {
       "name": "Tottenham",
       "icon": "tfc.png",
-      "wins": 0,
+      "wins": 4,
       "loses": 0,
-      "draws": 0,
+      "draws": 2,
       "scored": 0,
       "missed": 0,
       "cupStatus": "..."

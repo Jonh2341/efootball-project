@@ -86,13 +86,13 @@ function Home() {
     },
   };
 
-  // функція показування новин
-  const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
-    const $img = $(e.currentTarget);
+// функція показування новин
+const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
+  const $img = $(e.currentTarget);
 
-    for (const cls in configs) {
+    Object.entries(configs).forEach(([cls, cfg]) => {
       if ($img.hasClass(cls)) {
-        const { id, expanded, normal } = configs[cls];
+        const { id, expanded, normal } = cfg;
 
         if (!isClicked) {
           setIsClicked(true);
@@ -107,8 +107,8 @@ function Home() {
           $(id).removeClass(expanded).addClass(normal);
         }
       }
-    }
-  };
+    });
+};
 
   // створюваш новин
   const createNews = (
@@ -215,7 +215,7 @@ function Home() {
                 <div className="cell">{stats.wins}</div>
                 <div className="cell">{stats.loses}</div>
                 <div className="cell">{stats.draws}</div>
-                <div className="cell">{stats.wins * 3}</div>
+                <div className="cell">{(stats.wins * 3) + stats.draws}</div>
               </React.Fragment>
             ))}
           </div>
