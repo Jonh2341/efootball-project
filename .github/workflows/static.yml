@@ -16,7 +16,8 @@ jobs:
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./my-app/dist
+
 
   deploy:
     runs-on: ubuntu-latest
