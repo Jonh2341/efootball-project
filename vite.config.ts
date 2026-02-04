@@ -8,4 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: '/efootball-project/', // 👈 дуже важливо для GitHub Pages
 })
