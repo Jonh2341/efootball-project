@@ -1,18 +1,22 @@
 {
     "HugeNews": {
         "seasonTwentySix": "../src/storage/new1.jpg",
-        "seasonTwentySeven": "..."
+        "seasonTwentySeven": "../src/storage/MissingHugeNew.jpg",
+        "seasonTwentyEight": "../src/storage/MissingHugeNew.jpg"
     },
     "TopLeftNews": {
         "seasonTwentySix": "../src/storage/new2.jpg",
-        "seasonTwentySeven": "..."
+        "seasonTwentySeven": "../src/storage/MissingTopLeftNew.jpg",
+        "seasonTwentyEight": "../src/storage/MissingTopLeftNew.jpg"
     },
     "LittleNews": {
         "seasonTwentySix": "../src/storage/new3.jpg",
-        "seasonTwentySeven": "..."
+        "seasonTwentySeven": "../src/storage/MissingLittleNew.jpg",
+        "seasonTwentyEight": "../src/storage/MissingLittleNew.jpg"
     },
     "BottomSideNews": {
         "seasonTwentySix": "../src/storage/new-4.png",
-        "seasonTwentySeven": "..."
+        "seasonTwentySeven": "../src/storage/MissingBottomSideNew.jpg",
+        "seasonTwentyEight": "../src/storage/MissingBottomSideNew.jpg"
     }
 }

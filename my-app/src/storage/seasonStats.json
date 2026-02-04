@@ -5,6 +5,7 @@
       "icon": "lfc.png",
       "wins": 3,
       "loses": 6,
+      "draws": 0,
       "scored": 17,
       "missed": 25,
       "cupStatus": "loser"
@@ -14,6 +15,7 @@
       "icon": "tfc.png",
       "wins": 6,
       "loses": 3,
+      "draws": 0,
       "scored": 25,
       "missed": 17,
       "cupStatus": "winner"
@@ -25,6 +27,7 @@
       "icon": "lfc.png",
       "wins":0,
       "loses":0,
+      "draws": 0,
       "scored": 0,
       "missed": 0,
       "cupStatus": "..."
@@ -34,6 +37,29 @@
       "icon": "tfc.png",
       "wins": 0,
       "loses": 0,
+      "draws": 0,
+      "scored": 0,
+      "missed": 0,
+      "cupStatus": "..."
+    }
+  },
+  "seasonTwentyEight": {
+    "Liverpool": {
+      "name": "Liverpool",
+      "icon": "lfc.png",
+      "wins":0,
+      "loses":0,
+      "draws": 0,
+      "scored": 0,
+      "missed": 0,
+      "cupStatus": "..."
+    },
+    "Tottenham": {
+      "name": "Tottenham",
+      "icon": "tfc.png",
+      "wins": 0,
+      "loses": 0,
+      "draws": 0,
       "scored": 0,
       "missed": 0,
       "cupStatus": "..."
