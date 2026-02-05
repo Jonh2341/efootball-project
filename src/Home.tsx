@@ -165,7 +165,9 @@ function Home() {
     newsData.BottomSideNews[seasonKey]
   );
 
-  const cupWinner = Object.values(seasonStats[seasonKey]).find((team: any) => team.cupStatus === 'winner');
+  const cupWinner = Object.values(seasonStats[seasonKey]).find(
+    (team: any) => team.cupStatus === 'winner'
+  ) as any;
 
   return (
     <>
