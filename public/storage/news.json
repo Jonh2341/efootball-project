@@ -1,0 +1,22 @@
+{
+    "HugeNews": {
+        "seasonTwentySix": "/storage/new1.jpg",
+        "seasonTwentySeven": "/storage/MissingHugeNew.jpg",
+        "seasonTwentyEight": "/storage/MissingHugeNew.jpg"
+    },
+    "TopLeftNews": {
+        "seasonTwentySix": "/storage/new2.jpg",
+        "seasonTwentySeven": "/storage/MissingTopLeftNew.jpg",
+        "seasonTwentyEight": "/storage/MissingTopLeftNew.jpg"
+    },
+    "LittleNews": {
+        "seasonTwentySix": "/storage/new3.jpg",
+        "seasonTwentySeven": "/storage/MissingLittleNew.jpg",
+        "seasonTwentyEight": "/storage/MissingLittleNew.jpg"
+    },
+    "BottomSideNews": {
+        "seasonTwentySix": "/storage/new-4.png",
+        "seasonTwentySeven": "/storage/MissingBottomSideNew.jpg",
+        "seasonTwentyEight": "/storage/MissingBottomSideNew.jpg"
+    }
+}

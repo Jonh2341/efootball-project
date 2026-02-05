@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import './App.css';
-import { useState } from "react";
-import seasonStats from "./storage/seasonStats.json";
-import newsDataRaw from "./storage/news.json";
 
 // 🔑 Типи для ключів сезону та структури новин
 type SeasonKey = "seasonTwentySix" | "seasonTwentySeven" | "seasonTwentyEight";
 
-// інтерфейс
 interface NewsBlock {
   seasonTwentySix: string;
   seasonTwentySeven: string;
@@ -22,12 +18,29 @@ interface NewsData {
   BottomSideNews: NewsBlock;
 }
 
-// підставляємо наші новини під інтерфейс
-const newsData = newsDataRaw as NewsData;
-
 function Home() {
   const [isClicked, setIsClicked] = useState(false);
   const [seasonStartAmount, setSeasonStartAmount] = useState(26);
+
+  // стейти для JSON
+  const [seasonStats, setSeasonStats] = useState<any>(null);
+  const [newsData, setNewsData] = useState<NewsData | null>(null);
+
+  // завантаження JSON
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}storage/seasonStats.json`)
+      .then(res => res.json())
+      .then(data => setSeasonStats(data));
+
+    fetch(`${import.meta.env.BASE_URL}storage/news.json`)
+      .then(res => res.json())
+      .then(data => setNewsData(data));
+  }, []);
+
+  // якщо дані ще не завантажені
+  if (!seasonStats || !newsData) {
+    return <div>Loading...</div>;
+  }
 
   // утиліта: число -> ключ сезону
   const numberToSeasonKey = (n: number): SeasonKey => {
@@ -35,25 +48,20 @@ function Home() {
       26: "seasonTwentySix",
       27: "seasonTwentySeven",
       28: "seasonTwentyEight",
-      
     };
     return map[n];
   };
 
-  // сезонні змінні
   const seasonKey = numberToSeasonKey(seasonStartAmount);
-
   const seasonAmountCounter = (arr: object) => Object.keys(arr);
   const seasonsLength = seasonAmountCounter(seasonStats).length - 1;
 
-  // додавання кількості сезонів
   const incrementByOne = () => {
     if (seasonStartAmount !== 26 + seasonsLength) {
       setSeasonStartAmount(prev => prev + 1);
     }
   };
 
-  // віднімання кількості сезонів
   const decrementByOne = () => {
     if (seasonStartAmount > 26) {
       setSeasonStartAmount(prev => prev - 1);
@@ -62,7 +70,6 @@ function Home() {
     }
   };
 
-  // конфіг для різних блоків
   const configs = {
     'huge-new': {
       id: '#huge-new-id',
@@ -86,9 +93,8 @@ function Home() {
     },
   };
 
-// функція показування новин
-const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
-  const $img = $(e.currentTarget);
+  const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
+    const $img = $(e.currentTarget);
 
     Object.entries(configs).forEach(([cls, cfg]) => {
       if ($img.hasClass(cls)) {
@@ -108,52 +114,50 @@ const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
         }
       }
     });
-};
+  };
 
-  // створюваш новин
   const createNews = (
     hugeNewUrl: string,
     topLeftNewUrl: string,
     littleNewUrl: string,
     bottomSideNewUrl: string
   ) => {
-      return {
-        hugeNew: (
-          <div
-            id="huge-new-id"
-            className="huge-new bg-cover bg-no-repeat w-full h-full"
-            style={{ backgroundImage: `url(${hugeNewUrl})` }}
-            onClick={showImage}
-          ></div>
-        ),
-        topLeftNew: (
-          <div
-            id="top-left-new"
-            className="top-left-new bg-no-repeat w-full h-full bg-cover"
-            style={{ backgroundImage: `url(${topLeftNewUrl})` }}
-            onClick={showImage}
-          ></div>
-        ),
-        littleNew: (
-          <div
-            id="little-new"
-            className="little-new w-full h-full bg-cover bg-no-repeat"
-            style={{ backgroundImage: `url(${littleNewUrl})` }}
-            onClick={showImage}
-          ></div>
-        ),
-        bottomSideNew: (
-          <div
-            id="bottom-side-new"
-            className="bottom-side-new w-full h-full bg-cover bg-no-repeat"
-            style={{ backgroundImage: `url(${bottomSideNewUrl})` }}
-            onClick={showImage}
-          ></div>
-        ),
-      };
+    return {
+      hugeNew: (
+        <div
+          id="huge-new-id"
+          className="huge-new bg-cover bg-no-repeat w-full h-full"
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${hugeNewUrl})` }}
+          onClick={showImage}
+        ></div>
+      ),
+      topLeftNew: (
+        <div
+          id="top-left-new"
+          className="top-left-new bg-no-repeat w-full h-full bg-cover"
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${topLeftNewUrl})` }}
+          onClick={showImage}
+        ></div>
+      ),
+      littleNew: (
+        <div
+          id="little-new"
+          className="little-new w-full h-full bg-cover bg-no-repeat"
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${littleNewUrl})` }}
+          onClick={showImage}
+        ></div>
+      ),
+      bottomSideNew: (
+        <div
+          id="bottom-side-new"
+          className="bottom-side-new w-full h-full bg-cover bg-no-repeat"
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${bottomSideNewUrl})` }}
+          onClick={showImage}
+        ></div>
+      ),
+    };
   };
 
-  // динамічні новини
   const { hugeNew, topLeftNew, littleNew, bottomSideNew } = createNews(
     newsData.HugeNews[seasonKey],
     newsData.TopLeftNews[seasonKey],
@@ -161,8 +165,7 @@ const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
     newsData.BottomSideNews[seasonKey]
   );
 
-  // виграш кубку
-  const cupWinner = Object.values(seasonStats[seasonKey]).find(team => team.cupStatus == 'winner');
+  const cupWinner = Object.values(seasonStats[seasonKey]).find((team: any) => team.cupStatus === 'winner');
 
   return (
     <>
@@ -195,7 +198,8 @@ const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
             </div>
           </div>
         </section>
-        {/* every stat has been changed */}
+
+        {/* таблиця ліги */}
         <section className="league-info relative w-[19%] h-[620px] flex flex-col bg-[#D2D2D2] p-[15px] z-[2]">
           <span className="about text-[20px]">league table:</span>
           <div className="league-table">
@@ -208,9 +212,11 @@ const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
             <div className="header">P</div>
 
             {/* Rows */}
-            {Object.entries(seasonStats[seasonKey] || {}).map(([team, stats]) => (
+            {Object.entries(seasonStats[seasonKey] || {}).map(([team, stats]: any) => (
               <React.Fragment key={team}>
-                <div className="cell"><img src={`../src/storage/${stats.icon}`} /></div>
+                <div className="cell">
+                  <img src={`${import.meta.env.BASE_URL}storage/${stats.icon}`} />
+                </div>
                 <div className="cell">{stats.wins + stats.loses}</div>
                 <div className="cell">{stats.wins}</div>
                 <div className="cell">{stats.loses}</div>
@@ -225,7 +231,5 @@ const showImage = (e: React.MouseEvent<HTMLDivElement>) => {
         </section>
       </main>
     </>
-  );
-}
-
+  )};
 export default Home;
