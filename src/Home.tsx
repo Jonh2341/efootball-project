@@ -66,7 +66,7 @@ function Home() {
     if (seasonStartAmount > 26) {
       setSeasonStartAmount(prev => prev - 1);
     } else {
-      alert('Currently this is minimal season.');
+      alert('Currently this is the final season.');
     }
   };
 
