@@ -64,5 +64,27 @@
       "missed": 0,
       "cupStatus": "loser"
     }
+  },
+  "seasonTwentyNine": {
+    "Liverpool": {
+      "name": "Liverpool",
+      "icon": "lfc.png",
+      "wins": 0,
+      "loses": 0,
+      "draws": 0,
+      "scored": 0,
+      "missed": 0,
+      "cupStatus": "..."
+    },
+    "Tottenham": {
+      "name": "Tottenham",
+      "icon": "tfc.png",
+      "wins": 0,
+      "loses": 0,
+      "draws": 0,
+      "scored": 0,
+      "missed": 0,
+      "cupStatus": "..."
+    }
   }
 }

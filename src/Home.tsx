@@ -3,12 +3,13 @@ import $ from "jquery";
 import './App.css';
 
 // 🔑 Типи для ключів сезону та структури новин
-type SeasonKey = "seasonTwentySix" | "seasonTwentySeven" | "seasonTwentyEight";
+type SeasonKey = "seasonTwentySix" | "seasonTwentySeven" | "seasonTwentyEight" | "seasonTwentyNine";
 
 interface NewsBlock {
   seasonTwentySix: string;
   seasonTwentySeven: string;
   seasonTwentyEight: string;
+  seasonTwentyNine: string;
 }
 
 interface NewsData {
@@ -48,6 +49,7 @@ function Home() {
       26: "seasonTwentySix",
       27: "seasonTwentySeven",
       28: "seasonTwentyEight",
+      29: "seasonTwentyNine",
     };
     return map[n];
   };
@@ -219,7 +221,7 @@ function Home() {
                 <div className="cell">
                   <img src={`${import.meta.env.BASE_URL}storage/${stats.icon}`} />
                 </div>
-                <div className="cell">{stats.wins + stats.loses}</div>
+                <div className="cell">{stats.wins + stats.loses + stats.draws}</div>
                 <div className="cell">{stats.wins}</div>
                 <div className="cell">{stats.loses}</div>
                 <div className="cell">{stats.draws}</div>
